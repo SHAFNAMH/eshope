@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+      {% if category %}
+          {{ category.description|truncatewords:155}}
+      {% else %}
+          welcome to eshop store where you can buys different items...
+     {% endif %}
+{% endblock %}
+{% block title %}
+{% if category %}
+          {{ category.name}} - eshop
+    {% else %}
+          see our New Collections- eshope
+    {% endif %}
+{% endblock %}
+{% block content %}
+{% if category %}
+     <div>
+         <div>
+             <p> <a href="{ % url 'eshop:allProdCat' %}">Our Product Collection </a></p>
+         </div>
+     </div>
+    {% endif %}
+<div>
+    {% if category %}
+    <img src="{{ category.image.url}} %}" alt="{{category.name}}">
+</div>
+<br>
+<div>
+        <h1>{{category.name}}</h>
+        <p>{{category.description}}</p>
+</div>
+    {% else %}
+<div>
+<img src="{% static 'img/banner.png' %}" alt="our product">
+</div>
+<br>
+<div>
+    <h1>
+        our product
+    </h1>
+    <p>What is Lorem Ipsum?
+Lorem Ipsum is a type of placeholder text commonly used in design, publishing, and web development. Its roots can be traced back to a scrambled section of De Finibus Bonorum et Malorum, a work by Cicero written in 45 BC. The standard text, “Lorem ipsum dolor sit amet,” and its variations have been the industry standard for dummy text since the 16th century.
+
+The main purpose of Lorem Ipsum is to fill spaces in designs or documents, giving an accurate representation of how the final product will look, without distracting readers with actual content. This makes it an indispensable tool in the creative world.</p>
+</div>
+ {% endif %}
+<div>
+    <div>
+        {% for product in products%}
+        <div>
+            <div>
+            <a href="{{product.get_url}}"> <img src="{{product.image.url}}"alt="{{product.image}}"></a>
+        <div>
+            <h4>{{product.name}}</h4>
+            <p>{{product.price}}</p>
+        </div>
+        </div>
+    </div>
+        {% endfor %}
+   </div>
+</div>
+{% endblock %}
